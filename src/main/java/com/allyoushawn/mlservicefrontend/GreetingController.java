@@ -21,7 +21,7 @@ import com.allyoushawn.mlservice.MLServiceResponse;
 @Controller
 public class GreetingController {
     private static final Logger log = LoggerFactory.getLogger(GreetingController.class);
-    private static final String POST_URL = "http://localhost:8081/sentimentAnalysis";
+    private static final String POST_URL = "http://localhost:8081/";
     private static final CloseableHttpClient httpClient = HttpClients.createDefault();
     private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -35,13 +35,12 @@ public class GreetingController {
     public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) throws IOException {
         model.addAttribute("greeting", greeting);
 
-        HttpPost httpPost = new HttpPost(POST_URL);
+        HttpPost httpPost = new HttpPost(POST_URL + greeting.getService());
         httpPost.addHeader("Content-Type", "application/json");
-        String text = greeting.getContent();
 
         StringBuilder json = new StringBuilder();
         json.append("{\"content\":\"");
-        json.append(text);
+        json.append(greeting.getContent());
         json.append("\", \"requestId\":\"");
         json.append(greeting.getId());
         json.append("\"}");
@@ -56,7 +55,7 @@ public class GreetingController {
 
         String responseString = EntityUtils.toString(httpResponse.getEntity());
         MLServiceResponse response = mapper.readValue(responseString, MLServiceResponse.class);
-        greeting.setContent("The response from ML Service is: " + response.getContent());
+        greeting.setResult(response.getContent());
 
 
         return "result";

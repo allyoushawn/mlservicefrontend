@@ -1,24 +1,13 @@
 package com.allyoushawn.mlservicefrontend;
 
+import lombok.Data;
+
+@Data
 public class Greeting {
 
-    private long id;
-    private String content;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    private String id = "request_123";
+    private String content = "This is very good.";
+    private String result;
+    private String service;
 
 }
