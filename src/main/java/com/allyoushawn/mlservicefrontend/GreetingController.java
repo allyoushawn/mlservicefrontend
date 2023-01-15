@@ -1,10 +1,12 @@
 package com.allyoushawn.mlservicefrontend;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,16 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import com.allyoushawn.mlservice.MLServiceResponse;
 
 @Controller
 public class GreetingController {
     private static final Logger log = LoggerFactory.getLogger(GreetingController.class);
     private static final String POST_URL = "http://localhost:8081/sentimentAnalysis";
     private static final CloseableHttpClient httpClient = HttpClients.createDefault();
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     @GetMapping("/greeting")
     public String greetingForm(Model model) {
@@ -53,19 +54,10 @@ public class GreetingController {
         System.out.println("POST Response Status:: "
                 + httpResponse.getStatusLine().getStatusCode());
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                httpResponse.getEntity().getContent()));
+        String responseString = EntityUtils.toString(httpResponse.getEntity());
+        MLServiceResponse response = mapper.readValue(responseString, MLServiceResponse.class);
+        greeting.setContent("The response from ML Service is: " + response.getContent());
 
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = reader.readLine()) != null) {
-            response.append(inputLine);
-        }
-        reader.close();
-
-        // print result
-        System.out.println(response.toString());
 
         return "result";
     }
