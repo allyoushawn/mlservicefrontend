@@ -25,13 +25,13 @@ public class GreetingController {
     private static final CloseableHttpClient httpClient = HttpClients.createDefault();
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    @GetMapping("/greeting")
+    @GetMapping("/ml_service")
     public String greetingForm(Model model) {
         model.addAttribute("greeting", new Greeting());
         return "service_form";
     }
 
-    @PostMapping("/greeting")
+    @PostMapping("/ml_service")
     public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) throws IOException {
         model.addAttribute("greeting", greeting);
 
