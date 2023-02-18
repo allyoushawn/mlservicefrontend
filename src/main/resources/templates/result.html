@@ -6,10 +6,10 @@
 </head>
 <body>
 <h1>Result</h1>
-<p th:text="'id: ' + ${greeting.id}" />
-<p th:text="'content: ' + ${greeting.content}" />
-<p th:text="'service: ' + ${greeting.service}" />
-<p th:text="'The result from ML service: ' + ${greeting.result}" />
+<p th:text="'id: ' + ${mlServiceForm.id}" />
+<p th:text="'content: ' + ${mlServiceForm.content}" />
+<p th:text="'service: ' + ${mlServiceForm.service}" />
+<p th:text="'The result from ML service: ' + ${mlServiceForm.result}" />
 <a href="/ml_service">Submit another message</a>
 </body>
 </html>

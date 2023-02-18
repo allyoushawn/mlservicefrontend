@@ -27,22 +27,22 @@ public class GreetingController {
 
     @GetMapping("/ml_service")
     public String greetingForm(Model model) {
-        model.addAttribute("greeting", new MLServiceForm());
+        model.addAttribute("mlServiceForm", new MLServiceForm());
         return "service_form";
     }
 
     @PostMapping("/ml_service")
-    public String greetingSubmit(@ModelAttribute MLServiceForm greeting, Model model) throws IOException {
-        model.addAttribute("greeting", greeting);
+    public String greetingSubmit(@ModelAttribute MLServiceForm mlServiceForm, Model model) throws IOException {
+        model.addAttribute("mlServiceForm", mlServiceForm);
 
-        HttpPost httpPost = new HttpPost(POST_URL + greeting.getService());
+        HttpPost httpPost = new HttpPost(POST_URL + mlServiceForm.getService());
         httpPost.addHeader("Content-Type", "application/json");
 
         StringBuilder json = new StringBuilder();
         json.append("{\"content\":\"");
-        json.append(greeting.getContent());
+        json.append(mlServiceForm.getContent());
         json.append("\", \"requestId\":\"");
-        json.append(greeting.getId());
+        json.append(mlServiceForm.getId());
         json.append("\"}");
         System.out.println(json.toString());
 
@@ -55,7 +55,7 @@ public class GreetingController {
 
         String responseString = EntityUtils.toString(httpResponse.getEntity());
         MLServiceResponse response = mapper.readValue(responseString, MLServiceResponse.class);
-        greeting.setResult(response.getContent());
+        mlServiceForm.setResult(response.getContent());
 
 
         return "result";

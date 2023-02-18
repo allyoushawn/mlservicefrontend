@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>ML Service Form</h1>
-<form action="#" th:action="@{/ml_service}" th:object="${greeting}" method="post">
+<form action="#" th:action="@{/ml_service}" th:object="${mlServiceForm}" method="post">
     <p>Id: <input type="text" th:field="*{id}" /></p>
     <p>Message: <input type="text" th:field="*{content}" /></p>
     <p>
