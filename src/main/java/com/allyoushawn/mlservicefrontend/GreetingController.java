@@ -27,12 +27,12 @@ public class GreetingController {
 
     @GetMapping("/ml_service")
     public String greetingForm(Model model) {
-        model.addAttribute("greeting", new Greeting());
+        model.addAttribute("greeting", new MLServiceForm());
         return "service_form";
     }
 
     @PostMapping("/ml_service")
-    public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) throws IOException {
+    public String greetingSubmit(@ModelAttribute MLServiceForm greeting, Model model) throws IOException {
         model.addAttribute("greeting", greeting);
 
         HttpPost httpPost = new HttpPost(POST_URL + greeting.getService());
