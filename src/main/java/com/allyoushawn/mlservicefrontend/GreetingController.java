@@ -28,7 +28,7 @@ public class GreetingController {
     @GetMapping("/greeting")
     public String greetingForm(Model model) {
         model.addAttribute("greeting", new Greeting());
-        return "greeting";
+        return "service_form";
     }
 
     @PostMapping("/greeting")
