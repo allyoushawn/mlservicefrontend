@@ -6,7 +6,7 @@ the ML service [[GitHub Repo]](https://github.com/allyoushawn/mlservice)
 To run the service, use the green triangle of the MlservicefrontendApplication. 
 After the service is running, hit the following endpoint to see the service page:
 ```
-http://localhost:8080/greeting
+http://localhost:8080/ml_service
 ```
 ## Lombok Note
 The repository use lombok plugin with IntelliJ to make the code more concise.
